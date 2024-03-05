@@ -57,8 +57,4 @@ class Solution:
 
         # If the current nodes have the same value and their left and right subtrees are the same,
         # then the trees are the same.
-        if p.val == q.val:
-            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        
-        # If the values of the current nodes are different, the trees are not the same.
-        return False
+        return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)

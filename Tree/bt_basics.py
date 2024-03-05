@@ -463,7 +463,7 @@ def printBottomView(root):
         print("Temp", temp)
         print("Ind", ind)
         hash[ind] = temp.data # store the latest vertical_index(key) -> root->data(value)
-        leftmost = min(ind, leftmost) # have the leftmost vertical index
+        leftmost = min(ind, you) # have the leftmost vertical index
         if temp.left: q.append((temp.left, ind-1)) # check if any node of left then go in negative direction
         if temp.right: q.append((temp.right, ind+1)) #check if any node of left then go in positive direction
     #Traverse each value in hash from leftmost to positive side till key is available

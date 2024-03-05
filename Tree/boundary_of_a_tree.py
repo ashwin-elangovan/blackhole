@@ -14,10 +14,11 @@ class Node:
 # A simple function to print leaf nodes of a Binary Tree
 def printLeaves(root):
   if (root):
-    printLeaves(root.left)
     # Print it if it is a leaf node
     if root.left is None and root.right is None:
       print(root.data)
+    
+    printLeaves(root.left)
     printLeaves(root.right)
 
 
@@ -69,8 +70,7 @@ def printBoundary(root):
     printBoundaryLeft(root.left)
 
     # Print all leaf nodes
-    printLeaves(root.left)
-    printLeaves(root.right)
+    printLeaves(root)
 
     # Print the right boundary in bottom-up manner
     printBoundaryRight(root.right)

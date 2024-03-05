@@ -51,45 +51,21 @@
 # Solution: https://leetcode.com/problems/path-sum-iii/solutions/141424/python-step-by-step-walk-through-easy-to-understand-two-solutions-comparison/?envType=study-plan-v2&envId=leetcode-75
 
 class Solution:
-    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        # Initialize a variable to store the result
-        self.result = 0
+  def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+      if not root:
+          return False
 
-        # Initialize a dictionary to cache (remember) intermediate sums
-        self.cache = {}
+      def dfs(root, curr_sum):
+          if not root:
+              return False
 
-        # Start the depth-first search (DFS) from the root node
-        self.dfs(root, targetSum, 0)
+          curr_sum += root.val
 
-        # Return the final result
-        return self.result
+          if curr_sum == targetSum and not root.left and not root.right:  # Check if it's a leaf node
+              return True
 
-    def dfs(self, root, target, curr_sum):
-        # Base case: If we reach a null (empty) node, return
-        if root is None:
-            return None
-        
-        # Calculate the current sum by adding the value of the current node
-        curr_sum += root.val
+          # Recursively check the left and right subtrees
+          return dfs(root.left, curr_sum) or dfs(root.right, curr_sum)
 
-        if curr_sum == target:
-          self.result += 1
+      return dfs(root, 0)
 
-        # Check if there is a previous sum that, when subtracted from the current sum, equals the target
-        # This means we have found a valid path that satisfies the target sum
-        if (curr_sum - target) in self.cache:
-            self.result += self.cache[curr_sum - target]
-
-        # Update the cache with the current sum
-        if curr_sum in self.cache:
-            self.cache[curr_sum] += 1
-        else:
-            self.cache[curr_sum] = 1
-
-        # Continue the DFS by exploring the left and right subtrees
-        self.dfs(root.left, target, curr_sum)
-        self.dfs(root.right, target, curr_sum)
-
-        # After exploring both subtrees, subtract 1 from the current sum in the cache
-        # This step is crucial to avoid counting the current sum in future paths
-        self.cache[curr_sum] -= 1
