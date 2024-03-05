@@ -27,16 +27,26 @@
 
 class Solution:
     def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
-        # Check if the leaf sequences of both trees are the same
-        return self.findleaf(root1) == self.findleaf(root2)
+        # Initialize lists to store leaf values of both trees
+        leaves_1 = []
+        leaves_2 = []
 
-    def findleaf(self, root):
-        if not root:
-            return []  # Return an empty list if the root is None
-        
-        if (not root.left) and (not root.right):
-            return [root.val]  # If it's a leaf node, return its value as a single-element list
+        # Helper function to perform depth-first search and collect leaf values
+        def dfs(root, leaves):
+            if not root:
+                return
+            if not root.left and not root.right:
+                leaves.append(root.val)  # Add leaf value to the list
 
-        # Recursively find the leaf values in the left and right subtrees
-        return self.findleaf(root.left) + self.findleaf(root.right)
+            # Recursively traverse left and right subtrees
+            dfs(root.left, leaves)
+            dfs(root.right, leaves)
+
+        # Populate lists with leaf values of both trees using DFS
+        dfs(root1, leaves_1)
+        dfs(root2, leaves_2)
+
+        # Check if the lists of leaf values are equal
+        return leaves_1 == leaves_2
+
 

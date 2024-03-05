@@ -47,8 +47,6 @@ def height_by_dfs(root):
     else: # This handles the case for leaf node where lheight and rheight will be 0
         return rheight + 1
 
-
-
 # Example usage:
 if __name__ == "__main__":
     # Constructing a binary tree
