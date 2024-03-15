@@ -24,7 +24,7 @@ class Solution:
       final_list[dst1] = weight1
 
       for n_dst, n_weight in graph[dst1]:
-        if n_dst not in final_list:
+        if n_dst not in final_list: 
           heapq.heappush(nodes, [weight1 + n_weight, n_dst])
 
     for i in range(n):
