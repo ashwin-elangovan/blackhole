@@ -40,39 +40,48 @@
 #         self.val = val
 #         self.next = next
 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        # Initialize slow and fast pointers
+        # If the linked list is empty, return None
+        if not head:
+            return
+
+        # Initialize two pointers, slow and fast
         slow = head
         fast = head
 
-        # Move slow by one step and fast by two steps to find the middle
+        # Move the slow pointer one step and the fast pointer two steps at a time until the fast pointer reaches the end of the list
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
+
         # Reverse the second half of the linked list
-        current = slow
+        curr = slow
         prev = None
-        while current:
-            next = current.next
-            current.next = prev
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
 
-            prev = current
-            current = next
-
+        # Initialize a variable to store the maximum sum of pairs
         max_val = 0
-        # Traverse through the first half and reversed second half of the list
-        # and find the maximum sum for each corresponding pair of nodes
-        # Since slow will be the last element after reversing, we are using prev here which is the mid element
-        while prev:
-            # Find the sum of values of the two nodes and keep track of the maximum
-            max_val = max(max_val, prev.val + head.val)
-            # Move to the next nodes for both halves
-            prev = prev.next
-            head = head.next
 
-        # Return the maximum pair sum
+        # Traverse both the original and reversed halves of the linked list simultaneously
+        while head and prev:
+            # Update max_val with the maximum sum of pairs encountered
+            max_val = max(max_val, head.val + prev.val)
+            head = head.next
+            prev = prev.next
+
+        # Return the maximum sum of pairs
         return max_val
+
 
         
