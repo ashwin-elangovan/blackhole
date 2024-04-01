@@ -20,7 +20,6 @@ class Solution:
       if dst1 in final_list:
         continue
 
-      print(final_list)
       final_list[dst1] = weight1
 
       for n_dst, n_weight in graph[dst1]:
