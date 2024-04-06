@@ -29,19 +29,42 @@
 #         rooms.append([interval])
 
 #   return len(rooms)
+
 import heapq
 
+class Interval:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
 
-def interval_partitioning(intervals):
-  heap = []
+class Solution:
+    def minMeetingRooms(self, intervals):
+        if not intervals:
+            return 0
 
-  for start, end in sorted(intervals):
-    while heap and heap[0] <= start:
-      heapq.heappop(heap)
-    heapq.heappush(heap, end)
+        # Sort the intervals based on their start times
+        intervals.sort(key=lambda x: x.start)
 
-  return len(heap)
+        # Initialize a min-heap to keep track of the end times of ongoing intervals
+        min_heap = []
 
+        # Add the end time of the first interval to the min-heap
+        heapq.heappush(min_heap, intervals[0].end)
 
-res = interval_partitioning([[0, 30], [5, 10], [15, 20]])
-print(res)
+        # Iterate through the sorted intervals
+        for interval in intervals[1:]:
+            # If the start time of the current interval is greater than or equal to the end time of the earliest ending interval
+            # in the min-heap, pop the earliest ending interval from the min-heap
+            if interval.start >= min_heap[0]:
+                heapq.heappop(min_heap)
+
+            # Add the end time of the current interval to the min-heap
+            heapq.heappush(min_heap, interval.end)
+
+        # The size of the min-heap represents the minimum number of meeting rooms required
+        return len(min_heap)
+
+# Example input
+intervals = [Interval(0, 30), Interval(5, 10), Interval(15, 20)]
+solution = Solution()
+print(solution.minMeetingRooms(intervals))  # Output: 2
