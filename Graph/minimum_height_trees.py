@@ -33,8 +33,6 @@ class Solution:
         adj[nei].remove(leaf)  # Remove the leaf from the neighbor's neighbors
         if len(adj[nei]) == 1:  # If the neighbor becomes a leaf after removal
           new_leaves.append(nei)  # Add it to the new leaves list
-      n -= len(
-        leaves
-      )  # Decrement the number of nodes by the number of removed leaves
+      n -= len(leaves)  # Decrement the number of nodes by the number of removed leaves
       leaves = new_leaves[:]  # Update the list of leaves for the next iteration
     return leaves  # Return the remaining nodes, which are the roots of the minimum height trees
