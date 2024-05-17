@@ -11,7 +11,7 @@ class Solution:
     # Loop until left pointer is less than or equal to right pointer
     while left <= right:
       # Print current pointers and maximum heights for debugging
-      print(left, right, max_left, max_right)
+      # print(left, right, max_left, max_right)
 
       # Check if the maximum height on the left side is less than or equal to the maximum height on the right side
       if max_left <= max_right:
